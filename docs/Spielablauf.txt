@@ -1,0 +1,269 @@
+Spielablauf (was sieht der Benutzer)
+
+Welcome to HTW escape
+========================================
+
+        MAIN MENU
+(A1)    1. Start game
+(A2)    [2. Continue game]   (only visible if gameStarted = true)
+(A3)    [3. Load game]       (only visible if hasSavedGame = true)
+(A4)    [4. Save game]       (only visible if gameStarted = true)
+(A5)    [5. Delete game]     (only visible if hasSavedGame = true)
+(A6)    6. Exit program
+
+Input: _
+
+========================================
+
+Zulässige Eingaben:
+    nur sichtbare Zahlen aus dem Menü
+Unzulässige Eingaben:
+	0, 7, -1, 999
+	Buchstaben: a, test
+	leer / nur Enter
+	eine Zahl, die gerade nicht angezeigt wird
+        --> sonst "Invalid input. Please select one of the displayed options."
+
+
+    A1. Start game
+
+    ========================================
+
+        A1.1 Please enter your player name:
+
+        Input: _
+
+        ========================================
+
+        Zulässige Eingaben:
+            Nicht-leere Zeichenkette ohne nur Leerzeichen
+        Unzulässige Eingaben:
+            Leer / nur Enter
+            Nur Leerzeichen
+                --> sonst "Invalid name. Please enter a valid player name."
+
+        Nach erfolgreicher Namenseingabe wird der Name gespeichert.
+
+        A1.2 The game starts and you enter the game menu.
+
+        ========================================
+
+        GAME MENU
+        ========================================
+
+        (A7)    1. Explore campus
+        (A8)    2. Show hero status
+        (A9)    3. Show run sheet
+        (A10)   4. Take a rest
+        (A11)   5. Leave game (back to main menu)
+
+        Input: _
+
+        ========================================
+
+        Zulässige Eingaben:
+            nur sichtbare Zahlen aus dem Menü (1-5)
+        Unzulässige Eingaben:
+            0, 6, -1, 999
+            Buchstaben: a, test
+            leer / nur Enter
+            eine Zahl, die gerade nicht angezeigt wird
+                --> sonst "Invalid input. Please select one of the displayed options."
+
+        Verzweigung:
+            1 -> A7 Explore campus
+            2 -> A8 Show hero status
+            3 -> A9 Show run sheet
+            4 -> A10 Take a rest
+            5 -> A11 Leave game (back to main menu)
+
+
+        A7. Explore campus
+
+        ========================================
+
+        Each exploration consumes exactly 1 round.
+        Maximum rounds: 24 → game lost.
+
+        On exploration, one of the following occurs randomly:
+            - 20% Nothing happens
+            - 52% Alien encounter
+            - 28% Lecturer encounter
+
+        After exploration, return to GAME MENU unless game ends.
+
+        Zulässige Eingaben: none (automatic flow)
+        Unzulässige Eingaben: none
+
+        Alien encounter:
+
+            Alien type:
+                - Friendly alien
+                - Hostile alien
+
+            If hostile alien:
+                ========================================
+                Alien encountered! What do you want to do?
+                1. Fight
+                2. Flee
+
+                Input: _
+
+                ========================================
+
+                Zulässige Eingaben:
+                    1 or 2
+                Unzulässige Eingaben:
+                    0, 3, -1, 999
+                    Buchstaben: a, test
+                    leer / nur Enter
+                    sonst "Invalid input. Please select one of the displayed options."
+
+                Fight:
+                    - Fight repeats until alien defeated or hero no longer operational.
+                    - On win: hero gains +5 XP
+                    - On loss (hero not defeated but loses fight): hero gains +1 XP
+                    - After fight, return to GAME MENU or game end if hero lost.
+
+                Flee:
+                    - 42% chance to succeed: escape to GAME MENU
+                    - Otherwise, forced to fight as above.
+
+            If friendly alien:
+                - Friendly alien greets and provides helpful hint.
+                - Return to GAME MENU.
+
+        Lecturer encounter:
+
+            You enter a room: [Room Identifier] - [Short Description]
+
+            Interaction:
+
+                If isReadyToSign() == true:
+                    - You receive a signature (only once per lecturer).
+                    - Message: "You have obtained a signature from [Lecturer Name]."
+                Else:
+                    - Lecturer gives advice or information.
+
+            Return to GAME MENU.
+
+
+        A8. Show hero status
+
+        ========================================
+
+        Displays current hero status:
+            - Name
+            - HP (max 50)
+            - XP
+            - Number of signatures collected
+            - Current round number
+
+        Input: Press Enter to return to GAME MENU
+
+        Zulässige Eingaben:
+            Enter (empty input)
+        Unzulässige Eingaben:
+            any other input
+                --> "Invalid input. Please press Enter to return."
+
+        After display, return to GAME MENU.
+
+
+        A9. Show run sheet
+
+        ========================================
+
+        Displays the run sheet with:
+            - List of rooms visited
+            - Encounters and outcomes
+            - Signatures collected
+
+        Input: Press Enter to return to GAME MENU
+
+        Zulässige Eingaben:
+            Enter (empty input)
+        Unzulässige Eingaben:
+            any other input
+                --> "Invalid input. Please press Enter to return."
+
+        After display, return to GAME MENU.
+
+
+        A10. Take a rest
+
+        ========================================
+
+        Choose rest type:
+
+        1. Small rest (+3 HP, max once per round)
+        2. Large rest (+10 HP, consumes the round)
+
+        Input: _
+
+        ========================================
+
+        Zulässige Eingaben:
+            1 or 2
+        Unzulässige Eingaben:
+            0, 3, -1, 999
+            Buchstaben: a, test
+            leer / nur Enter
+            sonst "Invalid input. Please select one of the displayed options."
+
+        Effects:
+            Small rest:
+                - +3 HP, but only once per round
+                - Does not consume the round
+            Large rest:
+                - +10 HP
+                - Consumes the round (counts as exploration round)
+            HP max 50.
+
+        After rest, return to GAME MENU or game end if rounds exceeded.
+
+
+        A11. Leave game (back to main menu)
+
+        ========================================
+
+        Are you sure you want to leave the game?
+
+        1. Yes
+        2. No
+
+        Input: _
+
+        ========================================
+
+        Zulässige Eingaben:
+            1 or 2
+        Unzulässige Eingaben:
+            0, 3, -1, 999
+            Buchstaben: a, test
+            leer / nur Enter
+            sonst "Invalid input. Please select one of the displayed options."
+
+        Verzweigung:
+            1 -> Back to MAIN MENU, game paused/saved state remains
+            2 -> Return to GAME MENU
+
+
+        Game End Conditions:
+
+            - After collecting 5 signatures, on the next Explore campus action, you encounter the professor.
+
+            Professor encounter:
+
+                You must pass a multiple-choice quiz to win the game.
+
+                Quiz details:
+                    - 3 questions total
+                    - One question asked randomly
+                    - 2 attempts to answer correctly per question
+                    - Fail twice → game lost
+                    - Correct answer → game won
+
+            - If 24 rounds exceeded → game lost.
+
+            On game lost or won, display appropriate message and return to MAIN MENU.
